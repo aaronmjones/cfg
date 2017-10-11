@@ -132,3 +132,7 @@ function svngdiffs() {
 function grepcpp() {
   find . \( -name "*.cpp" -o -name "*.h" \) -print | xargs grep "$1"
 }
+
+function config {
+   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+}
