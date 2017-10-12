@@ -7,7 +7,7 @@ Storing my dot files (.bashrc, .emacs, etc.) in a git repo according to techniqu
 ```
 git clone --bare https://bitbucket.org/durdn/cfg.git $HOME/.cfg
 function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
 config checkout
 config config status.showUntrackedFiles no
