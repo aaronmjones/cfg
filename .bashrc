@@ -134,5 +134,5 @@ function grepcpp() {
 }
 
 function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
