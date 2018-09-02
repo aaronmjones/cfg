@@ -5,7 +5,10 @@ Storing my dot files (.bashrc, .emacs, etc.) in a git repo according to techniqu
 
 ## Checkout the dot files
 ```
-git clone --bare https://github.com/aaronmjones/cfg.git $HOME/.cfg
+cd $HOME
+mv .bashrc .bashrc.old
+mv .emacs .emacs.old
+git clone --bare https://github.com/aaronmjones/cfg.git .cfg
 function config {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
