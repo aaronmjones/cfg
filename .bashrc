@@ -130,9 +130,22 @@ function svngdiffs() {
 }
 
 function grepcpp() {
-  find . \( -name "*.cpp" -o -name "*.h" \) -print | xargs grep "$1"
+  find . \( -name "*.cpp" -o -name "*.cc" -o -name "*.h" \) \
+       -print | xargs grep "$1"
+}
+
+function grepc() {
+  find . \( -name "*.c" -o -name "*.h" \) -print | xargs grep "$1"
 }
 
 function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
+  /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
+
+# You can put machine-/project-specific bash scripts in ~/.bash_sources.d
+# and they will be sourced here.
+if [ -d ~/.bash_sources.d ]; then
+  for f in ~/.bash_sources.d/*; do
+    source $f
+  done
+fi
