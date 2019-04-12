@@ -130,7 +130,11 @@ function svngdiffs() {
 }
 
 function grepcpp() {
-  find . \( -name "*.cpp" -o -name "*.h" \) -print | xargs grep "$1"
+  find . \( -name "*.cpp" -o -name "*.cc" -o -name "*.h" \) -print | xargs grep "$1"
+}
+
+function grepc() {
+  find . \( -name "*.c" -o -name "*.h" \) -print | xargs grep "$1"
 }
 
 function config {
