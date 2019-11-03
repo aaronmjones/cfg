@@ -102,6 +102,14 @@ There are two things you can do about this warning:
  )
 
 
+;; org mode
+;; -----------------------------------------------------------------------------
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+
 ;; My Global Preferences
 ;; -----------------------------------------------------------------------------
 (setq inhibit-startup-message t)              ;; Don't display splash screen?
@@ -124,21 +132,23 @@ There are two things you can do about this warning:
 (c-add-style "my-c-style"
              '("linux"
                (indent-tabs-mode . nil)
-                           (c-basic-offset . 2)
-                           (c-offsets-alist . ((inline-open . 0)
-                                               (brace-list-open . 0)
-                                                                   (innamespace . 0)))))
+               (c-basic-offset . 2)
+               (c-offsets-alist . ((inline-open . 0)
+                                   (brace-list-open . 0)
+                                   (innamespace . -)
+                                   (namespace-close . 0)
+                                   (namespace-open . 0)
+                                   ))))
 (defun maybe-gnu-style ()
   (interactive)
   (when (and buffer-file-name
              (or (string-match "/path/to/gnu/style/source/1" buffer-file-name)
-                             (string-match "/path/to/gnu/style/source/2" buffer-file-name)))
-            (c-set-style "gnu")))
+                 (string-match "/path/to/gnu/style/source/2" buffer-file-name)))
+    (c-set-style "gnu")))
 (defun my-c-mode ()
   (interactive)
   (c-set-style "my-c-style")
   (maybe-gnu-style))
-
 
 ;; My Mode Hooks
 ;; -----------------------------------------------------------------------------
@@ -174,9 +184,15 @@ There are two things you can do about this warning:
 ;; c-mode-common
 ;; -------------
 (add-hook 'c-mode-common-hook 'my-c-mode)
+
+;; c++-mode
+;; --------
+;; NOTE: .h files default to c-mode; If the .h is c++, do `M-x c++-mode`
+
 ;; less common file extensions
 ;; ---------------------------
 (add-to-list 'auto-mode-alist '("\\.proto\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.thrift\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("CMakeLists.txt" . sh-mode))
 

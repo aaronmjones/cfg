@@ -56,21 +56,47 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+BLUE="\[\033[01;34m\]"
+GREEN="\[\033[0;32m\]"
+BOLD_GREEN="\[\033[01;32m\]"
+RESET="\[\033[00m\]"
+parse_git_branch () {
+    BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+    if [ ! -z "$BRANCH" ]; then
+        echo "@$BRANCH"
+    fi
+}
+parse_svn_branch() {
+    RELATIVE_URL=$(svn info --show-item relative-url 2>/dev/null)
+    ROOT_PATH=$(svn info --show-item wc-root 2>/dev/null)
+    RELATIVE_PATH=${PWD##$ROOT_PATH}
+    if [ "$RELATIVE_URL" != "^$RELATIVE_PATH" ]; then
+        BRANCH="${RELATIVE_URL%%$RELATIVE_PATH}"
+        echo "$BRANCH" | sed -e "s#.*/branches/#@#; s#.*/trunk#@trunk#; s#.*/tags/#@#"
+    fi
+}
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+if [ "$color_prompt" = yes ]; then
+    export PS1="${debian_chroot:+($debian_chroot)}${BOLD_GREEN}\u@\h${RESET}:${BLUE}\w${GREEN}\$(parse_svn_branch)\$(parse_git_branch)${RESET}\$"
+else
+    export PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "
+fi
+
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
+# unset color_prompt force_color_prompt
+
+# # If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -130,8 +156,7 @@ function svngdiffs() {
 }
 
 function grepcpp() {
-  find . \( -name "*.cpp" -o -name "*.cc" -o -name "*.h" \) \
-       -print | xargs grep "$1"
+  find . \( -name "*.cpp" -o -name "*.cc" -o -name "*.h" \) -print | xargs grep "$1"
 }
 
 function grepc() {
