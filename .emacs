@@ -64,6 +64,13 @@
 ;; =============================================================================
 
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -102,6 +109,18 @@
 ;;     c-basic-offset 4)
 ;;(setq-default indent-tabs-mode nil)
 
+
+;(add-to-list 'load-path "~/.emacs.d/cmake-mode.el")
+;(add-to-list 'load-path "~/.emacs.d/thrift.el")
+
+(let ((cmake-settings "~/.emacs.d/cmake-mode.el"))
+ (when (file-exists-p cmake-settings)
+   (load-file cmake-settings))
+)
+(let ((thrift-settings "~/.emacs.d/thrift.el"))
+ (when (file-exists-p thrift-settings)
+   (load-file thrift-settings))
+)
 
 ;; My Mode Styles
 ;; -----------------------------------------------------------------------------
@@ -168,9 +187,9 @@
 ;; less common file extensions
 ;; ---------------------------
 (add-to-list 'auto-mode-alist '("\\.proto\\'" . c-mode))
-(add-to-list 'auto-mode-alist '("\\.thrift\\'" . c-mode))
-(add-to-list 'auto-mode-alist '("\\.cmake\\'" . sh-mode))
-(add-to-list 'auto-mode-alist '("CMakeLists.txt" . sh-mode))
+;(add-to-list 'auto-mode-alist '("\\.thrift\\'" . c-mode))
+;(add-to-list 'auto-mode-alist '("\\.cmake\\'" . sh-mode))
+;(add-to-list 'auto-mode-alist '("CMakeLists.txt" . sh-mode))
 
 
 ;; =============================================================================

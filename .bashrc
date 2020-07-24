@@ -148,11 +148,14 @@ export PATH="~/bin:$PATH"
 alias svnmodified='svn stat | grep "'^M'" | cut -b9-'
 
 function svngdiff() {
-  svn diff $1 --diff-cmd meld;
+  svn diff "$1" --diff-cmd meld;
 }
 
 function svngdiffs() {
-  for f in $(svnmodified); do svngdiff $f; done
+  OIFS="$IFS"
+  IFS=$'\n'
+  for f in $(svnmodified); do svngdiff "$f"; done
+  IFS="$OIFS"
 }
 
 function grepcpp() {
