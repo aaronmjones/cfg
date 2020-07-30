@@ -58,6 +58,14 @@
 ;;     LISP Library
 ;;   X Display Customizations
 
+;; =============================================================================
+;; NOTES
+;; =============================================================================
+
+;; On Windows, make sure dot files are in these locations:
+;;   C:/Users/<user>/AppData/Roaming/.emacs
+;;   C:/Users/<user>/AppData/Roaming/.emacs.d
+
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -129,17 +137,15 @@ There are two things you can do about this warning:
 ;;(setq-default indent-tabs-mode nil)
 
 
-;(add-to-list 'load-path "~/.emacs.d/cmake-mode.el")
-;(add-to-list 'load-path "~/.emacs.d/thrift.el")
-
-(let ((cmake-settings "~/.emacs.d/cmake-mode.el"))
+(let ((cmake-settings (expand-file-name "~/.emacs.d/cmake-mode.el")))
  (when (file-exists-p cmake-settings)
    (load-file cmake-settings))
 )
-(let ((thrift-settings "~/.emacs.d/thrift.el"))
+(let ((thrift-settings (expand-file-name "~/.emacs.d/thrift.el")))
  (when (file-exists-p thrift-settings)
    (load-file thrift-settings))
 )
+
 
 ;; My Mode Styles
 ;; -----------------------------------------------------------------------------
