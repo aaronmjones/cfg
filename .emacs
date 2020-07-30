@@ -1,10 +1,4 @@
 ;; =============================================================================
-;; Required packages
-;; =============================================================================
-;; M-x package-install RET org-journal
-;; M-x load-file RET ~/.emacs
-
-;; =============================================================================
 ;; TOC
 ;; =============================================================================
 
@@ -84,10 +78,6 @@ There are two things you can do about this warning:
 (package-initialize)
 
 
-(customize-set-variable 'org-journal-dir "~/Dropbox/Org/Journal/")
-(require 'org-journal)
-;;(setq org-journal-dir "~/Dropbox/journal")
-
 ;; =============================================================================
 ;; My Preferences
 ;; =============================================================================
@@ -105,8 +95,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (wombat)))
- '(package-selected-packages (quote (org-journal))))
+ '(custom-enabled-themes (quote (wombat))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -216,19 +205,10 @@ There are two things you can do about this warning:
 
 ;; less common file extensions
 ;; ---------------------------
-(add-to-list 'auto-mode-alist '("\\.proto\\'" . c-mode))
+;(add-to-list 'auto-mode-alist '("\\.proto\\'" . c-mode))
 ;(add-to-list 'auto-mode-alist '("\\.thrift\\'" . c-mode))
 ;(add-to-list 'auto-mode-alist '("\\.cmake\\'" . sh-mode))
 ;(add-to-list 'auto-mode-alist '("CMakeLists.txt" . sh-mode))
-
-
-(setq org-capture-templates
-      '(;; other entries
-        ("j" "Journal entry" plain
-         (file+datetree+prompt "~/org/personal/journal.org")
-         "%K - %a\n%i\n%?\n")
-        ;; other entries
-        ))
 
 
 ;; =============================================================================
