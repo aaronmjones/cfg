@@ -146,9 +146,15 @@ There are two things you can do about this warning:
    (load-file thrift-settings))
 )
 
+;; Override major mode for certain paths
+;; -----------------------------------------------------------------------------
+(add-to-list 'auto-mode-alist
+             '("path/to/m4/source" . m4-mode))
 
 ;; My Mode Styles
 ;; -----------------------------------------------------------------------------
+;; M-x c-set-style to set a style manually. Edit my-c-mode function below to
+;; set style automatically.
 (c-add-style "my-c-style"
              '("linux"
                (indent-tabs-mode . nil)
@@ -159,6 +165,18 @@ There are two things you can do about this warning:
                                    (namespace-close . 0)
                                    (namespace-open . 0)
                                    ))))
+
+(c-add-style "vs"
+             '("linux"
+               (c-set-offset 'substatement-open 0)
+               (c++-tab-always-indent . t)
+               (c-basic-offset . 4)
+               (c-indent-level . 4)
+               (tab-stop-list . '(4 8 12 16 20 24 28 32 26 40 44 48 52 56 60))
+               (tab-width . 4)
+               (indent-tabs-mode . t)
+               ))
+
 (defun maybe-gnu-style ()
   (interactive)
   (when (and buffer-file-name
