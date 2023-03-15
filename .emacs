@@ -655,6 +655,7 @@ There are two things you can do about this warning:
 
 ;; Rectangle Commands
 ;; -----------------------------------------------------------------------------
+;; C-x r t                                                   Edit multiple lines
 ;; C-x r k      kill-rectangle
 ;; C-x r d      delete-rectangle
 ;; C-x r y      yank-rectangle
